@@ -13,11 +13,13 @@
 # How to Run practice1.pl & practice2.py
 
 ```
-perl practice1.pl
+perl validate_password.pl
+
 ```
 
 ```
-python3 practice2.py
+python3 remove_parenthesis.py
+
 ```
 
 
