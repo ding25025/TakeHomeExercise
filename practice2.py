@@ -1,3 +1,6 @@
+import unittest
+
+
 def removeBrackets(Exp):
     # Code here
     exp_list = list(Exp)
@@ -94,10 +97,21 @@ def removeBrackets(Exp):
     return result
 
 
-expr1 = "1*(2+(3*(4+5)))"
-expr2 = "2 + (3 / -5)"
-expr3 = "x+(y+z)+(t+(v+w))"
+class TestRemoveBrackets(unittest.TestCase):
 
-# Function call
-test = removeBrackets(expr2)
-print(test)
+    def test_remove_brackets(self):
+        # Test cases
+        test_cases = [
+            ("1*(2+(3*(4+5)))", "1*(2+3*(4+5))"),
+            ("2 + (3 / -5)", "2 + 3 / -5"),
+            ("x+(y+z)+(t+(v+w))", "x+y+z+t+v+w"),
+        ]
+        # Iterate through test cases and check the result
+        for input_expr, expected_output in test_cases:
+            with self.subTest(input_expr=input_expr, expected_output=expected_output):
+                result = removeBrackets(input_expr)
+                self.assertEqual(result, expected_output)
+
+
+if __name__ == "__main__":
+    unittest.main()
