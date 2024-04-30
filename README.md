@@ -10,7 +10,7 @@
   - f("2 + (3 / -5)") ===> "2 + 3 / -5"
   - f("x+(y+z)+(t+(v+w))") ===> "x+y+z+t+v+w"
   
-# How to Run practice1.pl & practice2.py
+# How to run the perl and python script
 
 ```
 perl validate_password.pl
