@@ -10,3 +10,18 @@
   - f("2 + (3 / -5)") ===> "2 + 3 / -5"
   - f("x+(y+z)+(t+(v+w))") ===> "x+y+z+t+v+w"
   
+# How to Run practice1.pl & practice2.py
+
+```
+perl practice1.pl
+```
+
+```
+python3 practice2.py
+```
+
+
+# Reference 
+- ChatGpt
+- [Remove all redundant parenthesis](https://www.geeksforgeeks.org/remove-all-redundant-parenthesis/)
+  

@@ -1,20 +1,21 @@
 def removeBrackets(Exp):
     # Code here
-    s = list(Exp)
+    exp_list = list(Exp)
     n = len(Exp)
 
-    ans = [1] * (n + 1)
+    answer = [1] * (n + 1)
     lasta = [0] * (n + 1)
     nxta = [0] * (n + 1)
+    operator = ["*", "+", "-", "/"]
 
-    l = -1
+    l = -1  # initial value
 
     # Start Iterating from
     # starting index
     for i in range(n):
         lasta[i] = l
-        if s[i] == "*" or s[i] == "+" or s[i] == "-" or s[i] == "/":
-            l = s[i]
+        if exp_list[i] in operator:
+            l = exp_list[i]
 
     # Start Iterating from
     # last index
@@ -22,23 +23,23 @@ def removeBrackets(Exp):
 
     for i in range(n - 1, -1, -1):
         nxta[i] = l
-        if s[i] == "*" or s[i] == "+" or s[i] == "-" or s[i] == "/":
-            l = s[i]
+        if exp_list[i] in operator:
+            l = exp_list[i]
 
     stack = []
-    sign = [-1] * 256
+    sign = [-1] * 256  # track operator positions
     mp = [0] * 256
-    operand = ["*", "+", "-", "/"]
 
     for p in range(n):
-        for x in operand:
+        for x in operator:
             mp[ord(x)] = 0
-            if x == s[p]:
+            if x == exp_list[p]:
                 sign[ord(x)] = p
-        if s[p] == "(":
+
+        if exp_list[p] == "(":
             stack.append(p)
 
-        elif s[p] == ")":
+        elif exp_list[p] == ")":
             i = stack.pop()
             j = p
 
@@ -47,12 +48,17 @@ def removeBrackets(Exp):
 
             # Iterate in operator
             # array
-            for x in operand:
+            for x in operator:
                 if sign[ord(x)] >= i:
                     mp[ord(x)] = 1
             ok = 0
 
-            if i > 0 and j + 1 < n and s[i - 1] == "(" and s[j + 1] == ")":
+            if (
+                i > 0
+                and j + 1 < n
+                and exp_list[i - 1] == "("
+                and exp_list[j + 1] == ")"
+            ):
                 ok = 1
             if (
                 mp[ord("+")] == 0
@@ -77,15 +83,15 @@ def removeBrackets(Exp):
                     ok = 1
             # If the pair is reduntant
             if ok == 1:
-                ans[i] = 0
-                ans[j] = 0
+                answer[i] = 0
+                answer[j] = 0
 
     # Final string
-    res = ""
+    result = ""
     for i in range(n):
-        if ans[i] > 0:
-            res += s[i]
-    return res
+        if answer[i] > 0:
+            result += exp_list[i]
+    return result
 
 
 expr1 = "1*(2+(3*(4+5)))"
@@ -93,5 +99,5 @@ expr2 = "2 + (3 / -5)"
 expr3 = "x+(y+z)+(t+(v+w))"
 
 # Function call
-result = removeBrackets(expr3)
-print(result)
+test = removeBrackets(expr2)
+print(test)
