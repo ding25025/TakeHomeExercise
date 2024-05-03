@@ -28,7 +28,6 @@ def removeBrackets(Exp):
         nxta[i] = l
         if exp_list[i] in operator:
             l = exp_list[i]
-
     stack = []
     sign = [-1] * 256  # track operator positions
     mp = [0] * 256
@@ -46,7 +45,7 @@ def removeBrackets(Exp):
             i = stack.pop()
             j = p
 
-            nxt = nxta[j]
+            nxt = nxta[j]  # next index
             last = lasta[i]
 
             # Iterate in operator
@@ -63,6 +62,7 @@ def removeBrackets(Exp):
                 and exp_list[j + 1] == ")"
             ):
                 ok = 1
+
             if (
                 mp[ord("+")] == 0
                 and mp[ord("*")] == 0
@@ -73,17 +73,21 @@ def removeBrackets(Exp):
 
             if last == -1 and nxt == -1:
                 ok = 1
+
             if last == "/":
                 pass
             elif last == "-" and (mp[ord("+")] == 1 or mp[ord("-")] == 1):
                 pass
-            elif mp[ord("-")] == 0 and mp[ord("+")] == 0:
+            elif mp[ord("+")] == 0:
                 ok = 1
+
             else:
                 if (last == -1 or last == "+" or last == "-") and (
                     nxt == -1 or nxt == "+" or nxt == "-"
                 ):
+
                     ok = 1
+
             # If the pair is reduntant
             if ok == 1:
                 answer[i] = 0
@@ -105,6 +109,12 @@ class TestRemoveBrackets(unittest.TestCase):
             ("1*(2+(3*(4+5)))", "1*(2+3*(4+5))"),
             ("2 + (3 / -5)", "2 + 3 / -5"),
             ("x+(y+z)+(t+(v+w))", "x+y+z+t+v+w"),
+            ("(2*(3+4)*5)/6", "2*(3+4)*5/6"),
+            ("(-5)/7", "-5/7"),
+            ("(-5)*7", "-5*7"),
+            ("1+(-1)", "1+(-1)"),
+            ("5*(-3)", "5*-3"),
+            ("((2*((2+3)-(4*6))+(8+(7*4))))", "2*(2+3-4*6)+8+7*4"),
         ]
         # Iterate through test cases and check the result
         for input_expr, expected_output in test_cases:
