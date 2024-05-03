@@ -2,7 +2,7 @@ import unittest
 from re import *
 
 def f(x):
-    *n,=sub('\D','',x);x=sub('\d','9',x);v,i,r,l=eval(x),0,lambda d,a,s:d.replace(s,"?",a).replace(s,"",1).replace("?",s),lambda:len(findall('\(',x))
+    *n,=sub('\W','',x);x=sub('\w','9',x);v,i,r,l=eval(x),0,lambda d,a,s:d.replace(s,"?",a).replace(s,"",1).replace("?",s),lambda:len(findall('\(',x))
     while i<l():
         j=0
         while j<l():
@@ -122,7 +122,7 @@ class TestRemoveBrackets(unittest.TestCase):
         test_cases = [
             ("1*(2+(3*(4+5)))", "1*(2+3*(4+5))"),
             ("2 + (3 / -5)", "2 + 3 / -5"),
-            #("x+(y+z)+(t+(v+w))", "x+y+z+t+v+w"), // fail by Joe
+            ("x+(y+z)+(t+(v+w))", "x+y+z+t+v+w"),
             ("(2*(3+4)*5)/6", "2*(3+4)*5/6"),
             ("(-5)/7", "-5/7"),
             ("(-5)*7", "-5*7"),
