@@ -31,7 +31,10 @@ def removeBrackets(Exp):
     stack = []
     sign = [-1] * 256  # track operator positions
     mp = [0] * 256
-
+    print(lasta)
+    print(nxta)
+    print(sign)
+    print(mp)
     for p in range(n):
         for x in operator:
             mp[ord(x)] = 0
@@ -44,10 +47,11 @@ def removeBrackets(Exp):
         elif exp_list[p] == ")":
             i = stack.pop()
             j = p
-
+            print(str(i) + " " + str(j))
             nxt = nxta[j]  # next index
             last = lasta[i]
-
+            print(nxt)
+            print(last)
             # Iterate in operator
             # array
             for x in operator:
@@ -73,6 +77,16 @@ def removeBrackets(Exp):
 
             if last == -1 and nxt == -1:
                 ok = 1
+            # special case solution
+            if last == -1 and (nxt == "/" or nxt == "*"):
+                ok = 1
+            # special case solution
+            if (
+                ("+" in exp_list[i:j] or "*" in exp_list[i:j])
+                and exp_list[i - 1] == "("
+                and "-" not in exp_list[i:j]
+            ):
+                ok = 1
 
             if last == "/":
                 pass
@@ -80,12 +94,10 @@ def removeBrackets(Exp):
                 pass
             elif mp[ord("+")] == 0:
                 ok = 1
-
             else:
                 if (last == -1 or last == "+" or last == "-") and (
                     nxt == -1 or nxt == "+" or nxt == "-"
                 ):
-
                     ok = 1
 
             # If the pair is reduntant
