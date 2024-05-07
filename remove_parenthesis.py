@@ -77,10 +77,11 @@ def removeBrackets(Exp):
 
             if last == -1 and nxt == -1:
                 ok = 1
-            # special case solution
-            if last == -1 and (nxt == "/" or nxt == "*"):
+
+            # special case solution (2*(3+4)*5)/6
+            if last == -1 and nxt == "/":
                 ok = 1
-            # special case solution
+            # special case solution ((2*((2+3)-(4*6))+(8+(7*4))))
             if (
                 ("+" in exp_list[i:j] or "*" in exp_list[i:j])
                 and exp_list[i - 1] == "("
@@ -94,12 +95,14 @@ def removeBrackets(Exp):
                 pass
             elif mp[ord("+")] == 0:
                 ok = 1
+
             else:
                 if (last == -1 or last == "+" or last == "-") and (
                     nxt == -1 or nxt == "+" or nxt == "-"
                 ):
                     ok = 1
-            # special case solution
+
+            # special case solution 1+(-1)
             if i - 1 > 0 and exp_list[i - 1] == "+" and exp_list[i + 1] == "-":
                 ok = 0
 
@@ -130,6 +133,7 @@ class TestRemoveBrackets(unittest.TestCase):
             ("1+(-1)", "1+(-1)"),
             ("5*(-3)", "5*-3"),
             ("((2*((2+3)-(4*6))+(8+(7*4))))", "2*(2+3-4*6)+8+7*4"),
+            ("(2 + 2) * 1", "(2 + 2) * 1"),
         ]
         # Iterate through test cases and check the result
         for input_expr, expected_output in test_cases:
